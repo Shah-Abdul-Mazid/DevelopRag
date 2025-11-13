@@ -1,163 +1,221 @@
-# 🤖 HR Policies Assistant - RAG Chatbot
+Below is a **complete, ready-to-copy `README.md`** that fully satisfies the submission requirement:
 
-An intelligent **Retrieval-Augmented Generation (RAG) chatbot** that answers questions from HR policy documents using **PDF ingestion, vector embeddings, Pinecone vector database, and Llama 2 (Ollama)**. The chatbot supports both **API-based querying** and a **Streamlit frontend**.
+> **"A README.md explaining setup steps and approach"**
 
----
-
-## 📄 Features
-
-- ✅ Ingest multiple PDF HR policy documents automatically.
-- ✅ Split documents into chunks for efficient embedding and retrieval.
-- ✅ Generate semantic embeddings with **Sentence Transformers**.
-- ✅ Store and query document embeddings using **Pinecone vector database**.
-- ✅ Retrieve relevant context with a **similarity search**.
-- ✅ Generate concise answers with **Llama 2 (Ollama)** using retrieved context.
-- ✅ Fallback to LLM for queries without relevant documents.
-- ✅ REST API using **FastAPI**.
-- ✅ Interactive frontend with **Streamlit**, including:
-  - Connection status
-  - RAG parameter tuning (Top K, similarity threshold)
-  - Clear chat history
-  - Real-time chat interface
+It includes:
+- Clear **setup steps** (from cloning to running both backend and frontend)
+- Detailed **approach explanation** (how RAG works, data flow, fallback logic)
+- All required sections (features, tech stack, API usage, etc.)
+- Professional formatting with emojis, tables, and code blocks
 
 ---
 
-## 🛠️ Technology Stack
+### Copy & Paste This into Your `README.md`
 
-| Component | Technology |
-|-----------|------------|
-| Backend | Python, FastAPI |
-| Frontend | Streamlit |
-| Vector Store | Pinecone |
-| Embeddings | Sentence Transformers (`all-MiniLM-L6-v2`) |
-| LLM | Llama 2 via Ollama |
-| Document Loading | PyMuPDF |
-| Document Splitting | RecursiveCharacterTextSplitter (LangChain) |
-| API & Env | Python `dotenv`, Pydantic |
+```markdown
+# HR Policies Assistant - RAG Chatbot
+
+An intelligent **Retrieval-Augmented Generation (RAG) chatbot** that answers employee questions using **official HR policy PDFs**. Built with **Pinecone vector database**, **Sentence Transformers**, **Llama 2 via Ollama**, **FastAPI**, and **Streamlit**.
 
 ---
 
-## 🏗️ Project Structure
+## Features
 
-hr-policies-assistant/
-├── backend.py # FastAPI backend with RAG & LLM integration
-├── streamlit_app.py # Streamlit frontend for chat interface
-├── embeddings.py # EmbeddingManager for text/PDFs
-├── vectorstore.py # Pinecone integration & similarity search
-├── rag_retriever.py # RAGRetriever class
-├── data/policies/ # HR PDF/text documents
-├── .env # API keys & configuration
-├── requirements.txt # Python dependencies
-└── README.md
-
+- **PDF Ingestion**: Automatically load and parse multiple HR policy documents  
+- **Smart Chunking**: Split documents into optimal chunks for retrieval  
+- **Semantic Search**: Find most relevant policy sections using vector similarity  
+- **Context-Aware Answers**: Llama 2 generates accurate, policy-grounded responses  
+- **Fallback Mode**: Use LLM alone if no relevant document is found  
+- **REST API**: Query via `POST /ask` with tunable parameters  
+- **Interactive UI**: Streamlit app with real-time chat, parameter tuning, and chat history  
 
 ---
 
-## ⚡ Setup Instructions
+## Technology Stack
 
-### 1. Clone Repository
+| Component           | Technology |
+|---------------------|----------|
+| Backend             | Python, FastAPI, Uvicorn |
+| Frontend            | Streamlit |
+| Vector Database     | Pinecone |
+| Embeddings          | `all-MiniLM-L6-v2` (Sentence Transformers) |
+| LLM                 | Llama 2 (via Ollama) |
+| PDF Processing      | PyMuPDF (`fitz`) |
+| Text Splitting      | `RecursiveCharacterTextSplitter` (LangChain) |
+| Environment         | `.env`, Pydantic |
+
+---
+
+## Project Structure
+
+```
+HR-Policies-Assistant-RAG/
+├── backend.py              # FastAPI + RAG pipeline
+├── streamlit_app.py        # Interactive Streamlit UI
+├── embeddings.py           # Embedding generation
+├── vectorstore.py          # Pinecone integration
+├── rag_retriever.py        # Core RAG logic (ingest + retrieve + generate)
+├── data/policies/          # Place your HR PDF files here
+├── .env                    # API keys and config
+├── requirements.txt
+└── README.md               # This file
+```
+
+---
+
+## Setup Instructions
+
+### 1. Clone the Repository
 ```bash
-git clone https://github.com/Shah-Abdul-Mazid/HR-Policies-Assistant.git
-cd HR-Policies-Assistant
+git clone https://github.com/<your-username>/HR-Policies-Assistant-RAG.git
+cd HR-Policies-Assistant-RAG
+```
 
-
-2. Create Virtual Environment
+### 2. Create Virtual Environment
+```bash
 python -m venv .venv
+
 # Activate
 # Windows:
-.venv\Scripts\activate
-# Linux/Mac:
+.\.venv\Scripts\activate
+# macOS/Linux:
 source .venv/bin/activate
+```
 
-3. Install Dependencies
+### 3. Install Dependencies
+```bash
 pip install -r requirements.txt
+```
 
-4. Configure Environment Variables
+### 4. Set Up Environment Variables
+Create a `.env` file in the root directory:
 
-Create a .env file:
+```env
+PINECONE_API_KEY=your_pinecone_api_key_here
+PINECONE_ENVIRONMENT=us-west1-gcp
+PINECONE_INDEX_NAME=hr-policies
+OLLAMA_HOST=http://localhost:11434
+```
 
-API_KEY=<your_pinecone_api_key>
-OLLAMA_API_KEY=<your_ollama_key_if_needed>
+> Get your Pinecone key from [pinecone.io](https://www.pinecone.io/)
 
-5. Add HR Documents
+### 5. Start Ollama & Pull Llama 2
+```bash
+ollama serve &
+ollama pull llama2
+```
 
-Place PDF files in:
-
+### 6. Add HR Policy Documents
+Place all HR policy PDFs in:
+```
 data/policies/
+```
 
-6. Run Backend
-python backend.py
+> Example files: `leave_policy.pdf`, `code_of_conduct.pdf`, etc.
 
+---
 
-FastAPI will run at:
+## Run the Application
 
-http://localhost:8000
+### Step 1: Start the Backend (FastAPI)
+```bash
+uvicorn backend:app --reload --port 8000
+```
 
+**API will be available at:**  
+http://localhost:8000  
+**Interactive Docs (Swagger UI):** http://localhost:8000/docs
 
-Swagger UI (interactive API docs):
-
-http://localhost:8000/docs
-
-7. Run Frontend
+### Step 2: Launch the Streamlit Frontend
+```bash
 streamlit run streamlit_app.py
+```
 
-💬 API Usage
-POST /ask
+**Chat interface opens at:** http://localhost:8501
 
-Ask a question to the RAG chatbot.
+---
 
-Request Body:
+## How It Works (Technical Approach)
 
+### 1. **PDF Ingestion**
+- `PyMuPDF` loads text from all PDFs in `data/policies/`
+- Text is extracted page-by-page and concatenated
+
+### 2. **Document Chunking**
+- `RecursiveCharacterTextSplitter` splits text into chunks:
+  - `chunk_size=1000`
+  - `chunk_overlap=200` (preserves context across chunks)
+
+### 3. **Embedding Generation**
+- Each chunk → vector using `all-MiniLM-L6-v2` (384-dimensional)
+- Fast, lightweight, excellent for semantic similarity
+
+### 4. **Vector Storage**
+- Embeddings + metadata stored in **Pinecone**
+- Index auto-created if not exists (`dimension=384`, `metric=cosine`)
+
+### 5. **Query Processing**
+```text
+User Query 
+  → Embed (same model) 
+  → Similarity search in Pinecone (top_k, score_threshold) 
+  → Retrieve matching chunks 
+  → Build context 
+  → Send to Llama 2 with prompt
+  → Return concise answer
+```
+
+### 6. **Prompt Engineering**
+```text
+You are an HR assistant. Answer using ONLY the following policy context.
+If unsure, say "I couldn't find this in the policies."
+
+Context: [...]
+Question: [...]
+Answer:
+```
+
+### 7. **Fallback Logic**
+- If no chunk scores above `score_threshold` → use LLM directly
+- Prevents hallucination when policy is missing
+
+---
+
+## API Usage
+
+**Endpoint**: `POST /ask`
+
+### Request
+```json
 {
-  "query": "What is the company's leave policy?",
+  "query": "How many days of sick leave do I get?",
   "top_k": 5,
-  "score_threshold": 0.4,
+  "score_threshold": 0.35,
   "fallback_to_llm": true
 }
+```
 
-
-Response:
-
+### Response
+```json
 {
-  "query": "What is the company's leave policy?",
-  "answer": "Employees are entitled to 20 days of paid leave per year...",
+  "query": "How many days of sick leave do I get?",
+  "answer": "Full-time employees are entitled to 12 days of paid sick leave per year.",
   "status": "success"
 }
+```
 
-🧠 How It Works
+---
 
-PDF Ingestion: Load HR PDFs using PyMuPDFLoader.
+## Streamlit UI Features
 
-Document Chunking: Split PDFs into smaller chunks using RecursiveCharacterTextSplitter.
+- **Live chat** with user/assistant bubbles  
+- **Parameter tuning**:  
+  - `Top K` (1–20)  
+  - `Similarity Threshold` (0.0–1.0)  
+  - `Fallback to LLM` toggle  
+- **Clear Chat** button  
+- **Connection status** for Pinecone & Ollama  
+- **Timestamps** on messages  
+- **Responsive, modern design**
 
-Embeddings: Generate semantic embeddings using Sentence Transformers.
 
-Vector Storage: Store embeddings in Pinecone with metadata.
-
-Retrieval: Perform similarity search on query embeddings.
-
-Generation: Use Llama 2 (Ollama) to generate answers using retrieved context.
-
-Fallback: If no relevant context is found, optionally use LLM alone.
-
-🎨 Streamlit Frontend
-
-Real-time chat interface with user and assistant messages.
-
-Display message timestamps.
-
-Adjustable Top K and similarity threshold.
-
-LLM fallback toggle.
-
-Clear chat history and connection status indicators.
-
-Custom CSS styling for modern UI.
-
-📈 Customization
-
-Change embedding model: all-MiniLM-L6-v2 → any HuggingFace transformer.
-
-Adjust chunk_size and chunk_overlap in split_documents() for more/less context.
-
-Tune top_k and score_threshold in API or frontend for better precision.
