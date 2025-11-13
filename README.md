@@ -91,11 +91,11 @@ The Streamlit app will open in your browser and connect to the backend.
 
 ### 2. Sample Queries
 
-| User Query                            | Example Response                                                                                                  |
-| ------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
-| "What is the leave policy?"           | "Employees are entitled to 20 paid leaves per year. Leave requests should be submitted 5 days in advance."        |
-| "How do I apply for maternity leave?" | "Submit a maternity leave application to HR with a minimum of 30 days' notice and provide medical documentation." |
-| "What are the office working hours?"  | "Office hours are from 9:00 AM to 6:00 PM, Monday to Friday."                                                     |
+| User Query                                                                                  | Example Response                                                                                                           |
+| ------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| "When Red Cross Society in East Pakistan was transformed into the National Red Cross Society of Bangladesh?" | "The Red Cross Society in East Pakistan was transformed into the National Red Cross Society of Bangladesh on December 20, 1971." |
+| "When Renamed as Bangladesh Red Cross Society by a GoB order?"                               | "The Bangladesh Red Crescent Society was renamed as Bangladesh Red Cross Society by a GoB (Government of Bangladesh) order on January 4, 1972." |
+| "When Udayankur Seba Sangstha started its journey?"                                         | "Udayankur Seba Sangstha (USS) started its journey in 1997."                                                              |
 
 ### 3. Adjustable Parameters
 
@@ -120,3 +120,4 @@ The Streamlit app will open in your browser and connect to the backend.
 * Ollama Llama2 must be installed and configured to work with the backend.
 
 ```
+![alt text](image-1.png)
