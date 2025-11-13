@@ -121,12 +121,3 @@ The Streamlit app will open in your browser and connect to the backend.
 ## 🎥 Demo Image
 <img width="2558" height="1598" alt="image" src="https://github.com/user-attachments/assets/d9579520-4b18-44be-9717-e472df7732ed" />
 
-## 🎥 Demo Video
-<div align="center">
-  <video src="https://github.com/user-attachments/assets/YOUR_NEW_ASSET_ID.mp4" width="100%" controls>
-    <source src="https://github.com/user-attachments/assets/YOUR_NEW_ASSET_ID.mp4" type="video/mp4">
-    [View on Loom](https://www.loom.com/share/f35e57f2d7c049f69ff9ef1129584a15)
-  </video>
-</div>
-
-See the Softvence Omega RAG setup in action!
