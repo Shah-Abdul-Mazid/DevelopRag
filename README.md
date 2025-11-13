@@ -124,6 +124,6 @@ The Streamlit app will open in your browser and connect to the backend.
 ## 🎥 Demo Video
 Watch the RAG chatbot in action:
 
-<video src="https://raw.githubusercontent.com/yourusername/yourrepo/main/demo.mp4" width="800" height="450" controls>
+<video src="https://www.loom.com/share/f35e57f2d7c049f69ff9ef1129584a15" width="800" height="450" controls>
   Your browser does not support the video tag.
 </video>
