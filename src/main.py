@@ -183,12 +183,15 @@ def rag_query(query: str, top_k=5, score_threshold=0.4):
     docs = rag_retriever.retrieve(query, top_k, score_threshold)
     if not docs:
         print("⚠️ No context found; fallback to LLM.")
-        return llm(f"Answer this HR-related question: {query}").content
+        # FIX: Ollama returns string directly, not an object with .content
+        result = llm(f"Answer this HR-related question: {query}")
+        return result if isinstance(result, str) else str(result)
 
     context = "\n\n".join(f"[{i+1}] {d['text']}" for i, d in enumerate(docs))
     chain = prompt_template | llm
     result = chain.invoke({"context": context, "query": query})
-    return result.content if hasattr(result, "content") else str(result)
+    # FIX: Handle both string and object responses
+    return result if isinstance(result, str) else (result.content if hasattr(result, "content") else str(result))
 
 # ==========================================================
 # ⚡ FastAPI App
@@ -198,7 +201,7 @@ app = FastAPI(title="HR RAG Chatbot API", version="2.0.0")
 # CORS Setup
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Update to ["http://localhost:8501"] for Streamlit
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -209,6 +212,7 @@ class QueryRequest(BaseModel):
     query: str
     top_k: Optional[int] = 5
     score_threshold: Optional[float] = 0.4
+    fallback_to_llm: Optional[bool] = True  # Added to match frontend
 
 class QueryResponse(BaseModel):
     query: str
@@ -240,11 +244,30 @@ async def ask_question(req: QueryRequest):
         answer = rag_query(req.query, req.top_k, req.score_threshold)
         return QueryResponse(query=req.query, answer=answer, status="success")
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Error processing query: {e}")
+        print(f"❌ Error in /ask endpoint: {e}")
+        raise HTTPException(status_code=500, detail=f"Error processing query: {str(e)}")
 
 # ==========================================================
-# 🏁 Entry Point
+# 🏁 Entry Point - FIX: Auto-load PDFs on startup (optional)
 # ==========================================================
+@app.on_event("startup")
+async def startup_event():
+    """Optional: Load PDFs on startup if they exist"""
+    pdf_dir = Path("pdfs")  # Adjust this path to your PDF directory
+    if pdf_dir.exists():
+        existing_count = index.describe_index_stats().get("namespaces", {}).get("hr-policies", {}).get("vector_count", 0)
+        if existing_count == 0:
+            print("📂 No vectors in database. Loading PDFs...")
+            docs = process_all_pdfs(str(pdf_dir))
+            if docs:
+                split_docs = split_documents(docs)
+                texts = [doc.page_content for doc in split_docs]
+                embeddings = embedding_manager.generate_embeddings(texts)
+                vectorstore.add_documents(split_docs, embeddings)
+        else:
+            print(f"✅ Vector database already contains {existing_count} vectors")
+
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run("src.backend:app", host="0.0.0.0", port=int(os.getenv("PORT", 8000)))
+    # FIX: Use 'main:app' instead of 'src.backend:app'
+    uvicorn.run("main:app", host="0.0.0.0", port=int(os.getenv("PORT", 8000)), reload=True)
