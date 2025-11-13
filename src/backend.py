@@ -254,22 +254,15 @@ def rag_simple_api(query: str, rag_retriever, llm, top_k=5, score_threshold=0.4,
     
     if not results:
         if fallback_to_llm:
-            # Use invoke method instead of calling directly
-            response = llm.invoke(f"Answer this question: {query}")
-            return response if isinstance(response, str) else str(response)
+            response = llm(f"Answer this question: {query}")
+            return response.content if hasattr(response, "content") else str(response)
         return "No relevant context found."
     
     context = "\n\n".join(f"[Source {i+1}]: {doc['content']}" for i, doc in enumerate(results))
     chain = prompt_template | llm
     response = chain.invoke({"context": context, "query": query})
     
-    # Handle different response types
-    if isinstance(response, str):
-        return response
-    elif hasattr(response, "content"):
-        return response.content
-    else:
-        return str(response)
+    return response.content if hasattr(response, "content") else str(response)
 
 # ==================== FastAPI Application ====================
 app = FastAPI(title="RAG Chatbot API", version="1.0.0")
@@ -333,9 +326,4 @@ def ask_question(request: QueryRequest):
 
 if __name__ == "__main__":
     import uvicorn
-    import os
-
-    port = int(os.environ.get("PORT", 8000))  # Render sets this automatically
-    uvicorn.run(app, host="0.0.0.0", port=port)
-
-    
+    uvicorn.run(app, host="0.0.0.0", port=8000)
