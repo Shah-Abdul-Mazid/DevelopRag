@@ -16,14 +16,14 @@ This repository contains a **Retrieval-Augmented Generation (RAG) chatbot** desi
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/<your-username>/HR-RAG-Chatbot.git
-cd HR-RAG-Chatbot
+git clone https://github.com/Shah-Abdul-Mazid/DevelopRag.git
+cd DevelopRag
 ````
 
 ### 2. Repository Structure
 
 ```
-HR-RAG-Chatbot/
+DevelopRag/
 ├── src/
 │   ├── backend.py          # FastAPI backend
 │   ├── frontend.py         # Streamlit frontend
@@ -38,12 +38,12 @@ HR-RAG-Chatbot/
 ### 3. Install Dependencies
 
 ```bash
-pip install -r src/requirements.txt
+pip install -r requirements.txt
 ```
 
 ### 4. Set Environment Variables
 
-Create a `.env` file in `src/`:
+Create a `.env` in the dirrectory folder:
 
 ```
 api_key=YOUR_PINECONE_API_KEY
