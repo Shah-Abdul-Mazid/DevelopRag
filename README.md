@@ -1,6 +1,3 @@
-Got it! Since **both `backend.py` and `frontend.py` are now under a single `src/` folder**, we can adjust the `README.md` accordingly. Here's the updated version:
-
-````markdown
 # 🤖 HR Policies RAG Chatbot
 
 This repository contains a **Retrieval-Augmented Generation (RAG) chatbot** designed to answer questions from HR policy documents using advanced AI technologies.
