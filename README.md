@@ -28,10 +28,12 @@ DevelopRag/
 │   ├── backend.py          # FastAPI backend
 │   ├── frontend.py         # Streamlit frontend
 │   ├── requirements.txt    # Dependencies for both backend & frontend
-│   └── .env                # API keys (excluded from git)
+| 
 ├── hr_policies/            # PDF documents
 │   └── ...
+|
 ├── README.md
+├── .env 
 └── .gitignore
 ```
 
