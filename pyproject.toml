@@ -1,0 +1,30 @@
+[project]
+name = "rag-based-chatbot-softvence-omega"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "fastapi>=0.121.1",
+    "httpx>=0.28.1",
+    "langchain>=1.0.5",
+    "langchain-community>=0.4.1",
+    "langchain-core>=1.0.4",
+    "matplotlib>=3.10.7",
+    "numpy>=2.2.6",
+    "openai>=2.7.2",
+    "pandas>=2.3.3",
+    "pinecone>=7.3.0",
+    "pydantic>=2.12.4",
+    "pymupdf>=1.26.6",
+    "pypdf>=6.2.0",
+    "python-dotenv>=1.2.1",
+    "pyyaml>=6.0.3",
+    "requests>=2.32.5",
+    "scikit-image>=0.25.2",
+    "scikit-learn>=1.7.2",
+    "sentence-transformers>=5.1.2",
+    "streamlit>=1.51.0",
+    "urllib3>=2.5.0",
+    "uvicorn>=0.38.0",
+]
