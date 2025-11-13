@@ -119,6 +119,6 @@ The Streamlit app will open in your browser and connect to the backend.
 * Ollama Llama2 must be installed and configured to work with the backend.
 
 <img width="2558" height="1598" alt="image" src="https://github.com/user-attachments/assets/d9579520-4b18-44be-9717-e472df7732ed" />
-```
+
 https://www.loom.com/share/f35e57f2d7c049f69ff9ef1129584a15
 ```
