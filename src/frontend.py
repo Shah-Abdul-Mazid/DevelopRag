@@ -154,12 +154,12 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # ==================== API Configuration ====================
-API_URL = "http://localhost:8000"
+backend_url = "https://developrag.onrender.com/ask"
 
 def check_api_health():
     """Check if the API is running"""
     try:
-        response = requests.get(f"{API_URL}/health", timeout=5)
+        response = requests.get(f"{backend_url}/health", timeout=5)
         return response.status_code == 200
     except:
         return False
