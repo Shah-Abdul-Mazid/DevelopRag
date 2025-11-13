@@ -123,9 +123,10 @@ The Streamlit app will open in your browser and connect to the backend.
 
 ## 🎥 Demo Video
 <div align="center">
-  <video src="https://raw.githubusercontent.com/yourusername/yourrepo/main/rag-chatbot-demo.mp4" width="100%" height="auto" controls preload="metadata">
-    Your browser does not support the video tag. [Download instead](https://github.com/yourusername/yourrepo/blob/main/rag-chatbot-demo.mp4).
+  <video src="https://github.com/user-attachments/assets/YOUR_NEW_ASSET_ID.mp4" width="100%" controls>
+    <source src="https://github.com/user-attachments/assets/YOUR_NEW_ASSET_ID.mp4" type="video/mp4">
+    [View on Loom](https://www.loom.com/share/f35e57f2d7c049f69ff9ef1129584a15)
   </video>
 </div>
 
-The video showcases the RAG pipeline setup in VS Code, including document ingestion to Pinecone and live Streamlit queries.
+See the Softvence Omega RAG setup in action!
